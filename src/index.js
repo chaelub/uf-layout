@@ -4,7 +4,7 @@ import './index.css'
 import UFLayout from './App'
 import InjectTest from './inject/InjectTest'
 
-const availableComponents = [{ name: 'test', element: InjectTest }]
+const availableComponents = [{ name: 'test', component: InjectTest }]
 
 ReactDOM.render(
   <React.StrictMode>

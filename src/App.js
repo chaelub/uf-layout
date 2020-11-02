@@ -1,28 +1,54 @@
-import React, { useState } from 'react'
+import React, { useReducer } from 'react'
+import r, { reducer } from './reducer'
+
+const defaultState = {
+  id: '',
+  components: [],
+  children: {
+    top: {
+      isVisible: false,
+    },
+    left: {
+      isVisible: false,
+    },
+    right: {
+      isVisible: false,
+    },
+    bottom: {
+      isVisible: false,
+    },
+  },
+  component: null,
+  showComponentsList: true,
+}
 
 function UFLayout({ id, components }) {
-  console.log(components)
-  const [showComponents, setShowComponents] = useState(true)
-  const [layoutComponent, setLayoutComponent] = useState(null)
+  const initState = { ...defaultState, id, components }
+  const [state, dispatch] = useReducer(reducer, initState)
 
-  // todo refactor state managment
-  const [isTopVisible, setIsTopVisible] = useState(false)
-  const [isLeftVisible, setIsLeftVisible] = useState(false)
-  const [isRightVisible, setIsRightVisible] = useState(false)
-  const [isBottomVisible, setIsBottomVisible] = useState(false)
+  const handleSelectComponent = (component) => {
+    dispatch({
+      type: r.SELECT_COMPONENT,
+      component,
+      showComponentsList: !state.showComponentsList,
+    })
+  }
+
+  const addLayout = (position) => {
+    dispatch({ type: r.ADD_LAYOUT, id: position })
+  }
 
   const getAvailableComponents = () => {
     return (
       <React.Fragment>
-        {components && showComponents && (
+        {state.components && state.showComponentsList && (
           <div id='component'>
-            {components.map((child, idx) => {
+            {state.components.map((child, idx) => {
               return (
                 <p
                   key={idx}
                   onClick={() => {
-                    setShowComponents(!showComponents)
-                    setLayoutComponent(child.element)
+                    handleSelectComponent(child.component)
                   }}
                 >
                   {child.name}
@@ -35,18 +61,18 @@ function UFLayout({ id, components }) {
     )
   }
 
-  const getLayoutChildren = (id, isVisible, toggleVisibility) => {
+  const getLayoutChildren = (id) => {
     return (
       <React.Fragment>
-        {isVisible ? (
-          <div className={`root ` + id}>
-            <UFLayout components={components} id={id}></UFLayout>
+        {state.children[id].isVisible ? (
+          <div className={`root ${id}`}>
+            <UFLayout components={state.components} id={id}></UFLayout>
           </div>
         ) : (
           <button
             type='button'
             onClick={() => {
-              toggleVisibility(!isVisible)
+              addLayout(id)
             }}
             className={id}
           >
@@ -59,11 +85,11 @@ function UFLayout({ id, components }) {
 
   return (
     <React.Fragment>
-      {getLayoutChildren('top', isTopVisible, setIsTopVisible)}
-      {getLayoutChildren('left', isLeftVisible, setIsLeftVisible)}
-      {layoutComponent ? layoutComponent : getAvailableComponents()}
-      {getLayoutChildren('right', isRightVisible, setIsRightVisible)}
-      {getLayoutChildren('bottom', isBottomVisible, setIsBottomVisible)}
+      {getLayoutChildren('top')}
+      {getLayoutChildren('left')}
+      {state.component ? state.component() : getAvailableComponents()}
+      {getLayoutChildren('right')}
+      {getLayoutChildren('bottom')}
     </React.Fragment>
   )
 }
