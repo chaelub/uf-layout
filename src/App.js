@@ -39,25 +39,26 @@ function UFLayout({ id, components }) {
     return (
       <React.Fragment>
         {isVisible ? (
-          <div>
+          <div className={`root ` + id}>
             <UFLayout components={components} id={id}></UFLayout>
           </div>
         ) : (
-          <p
+          <button
+            type='button'
             onClick={() => {
               toggleVisibility(!isVisible)
             }}
-            id={id}
+            className={id}
           >
             add {id}
-          </p>
+          </button>
         )}
       </React.Fragment>
     )
   }
 
   return (
-    <React.Fragment id={id}>
+    <React.Fragment>
       {getLayoutChildren('top', isTopVisible, setIsTopVisible)}
       {getLayoutChildren('left', isLeftVisible, setIsLeftVisible)}
       {layoutComponent ? layoutComponent : getAvailableComponents()}

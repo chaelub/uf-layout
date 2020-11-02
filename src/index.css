@@ -1,50 +1,43 @@
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
-
-#root {
+.root {
   display: grid;
   grid-template-areas:
     'top top top'
     'left component right'
     'bottom bottom bottom';
-  grid-template-rows: 60px 1fr 60px;
-  grid-template-columns: 33% 1fr 33%;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 10px;
   height: 100vh;
   margin: 0;
 }
-#top,
-#bottom,
-#component,
-#left,
-#right,
+
+.top,
+.bottom,
+.component,
+.left,
+.right,
 #root p {
   padding: 20px;
   background: gold;
 }
-#top {
+.root p {
+  padding: 20px;
+  background: gold;
+}
+.top {
   grid-area: top;
+  /* width: 100%; */
 }
-#bottom {
+.bottom {
   grid-area: bottom;
+  /* width: 100%; */
 }
-#component {
+.component {
   grid-area: component;
 }
-#left {
+.left {
   grid-area: left;
 }
-#right {
+.right {
   grid-area: right;
 }
