@@ -1,3 +1,21 @@
+````--------------------
+            x
+    --------------------
+   |   |           |   |
+   | x | Component | x |
+   |   |           |   |
+    --------------------
+            x
+    --------------------```
+
+по нажатию на x инджектится в выбраную область точно такой же лейаут
+образуя рекурсивное дерево по сути
+в цент лейату без создания детей можно заинджектить любой из доступных компонентов
+внутренние границы лейаута могут ресайзится драг энд дропом
+перекрытие одной обрасти другой (верх перекрывает боковые) можно менять (боковые перекрывают топ)
+
+
+# Bullshit ->
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +86,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+````
