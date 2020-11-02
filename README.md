@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/35b39475-6350-4d4f-809f-444c7e0cb9bf/deploy-status)](https://app.netlify.com/sites/uf-layout/deploys)
+
 ````--------------------
             x
     --------------------
