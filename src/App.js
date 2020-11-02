@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import AddChild from './components/AddChild'
 
-function App() {
+function UFLayout({ inject }) {
+  console.log(inject)
+  const [isInjectShow, setIsInjectShow] = useState(false)
+  const [childrenSettings, setChildrenSettings] = useState({})
+  const getLayoutChildren = (id) => {
+    return (
+      <AddChild
+        id={id}
+        handleClick={() => {
+          console.log(isInjectShow)
+          setIsInjectShow(!isInjectShow)
+        }}
+        inject={childrenSettings}
+      />
+    )
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <React.Fragment>
+      {inject && isInjectShow && (
+        <div>
+          {inject.map((child, idx) => {
+            return (
+              <p
+                key={idx}
+                onClick={() =>
+                  setChildrenSettings((settings) => {
+                    console.log('toggle settings')
+                    return { ...settings, top: child }
+                  })
+                }
+              >
+                {child.name}
+              </p>
+            )
+          })}
+        </div>
+      )}
+      {getLayoutChildren('top')}
+      {/* <AddChild id='left' />
+      <AddChild id='rught' />
+      <AddChild id='bottom' /> */}
+    </React.Fragment>
+  )
 }
 
-export default App;
+export default UFLayout
