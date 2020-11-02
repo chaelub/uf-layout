@@ -11,3 +11,40 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 } */
+
+#root {
+  display: grid;
+  grid-template-areas:
+    'top top top'
+    'left component right'
+    'bottom bottom bottom';
+  grid-template-rows: 60px 1fr 60px;
+  grid-template-columns: 33% 1fr 33%;
+  grid-gap: 10px;
+  height: 100vh;
+  margin: 0;
+}
+#top,
+#bottom,
+#component,
+#left,
+#right,
+#root p {
+  padding: 20px;
+  background: gold;
+}
+#top {
+  grid-area: top;
+}
+#bottom {
+  grid-area: bottom;
+}
+#component {
+  grid-area: component;
+}
+#left {
+  grid-area: left;
+}
+#right {
+  grid-area: right;
+}

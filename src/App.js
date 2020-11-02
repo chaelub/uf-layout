@@ -1,18 +1,21 @@
 import React, { useState } from 'react'
-import AddChild from './components/AddChild'
 
 function UFLayout({ id, components }) {
   console.log(components)
   const [showComponents, setShowComponents] = useState(true)
-  const [childrenSettings, setChildrenSettings] = useState({})
   const [layoutComponent, setLayoutComponent] = useState(null)
+
+  // todo refactor state managment
   const [isTopVisible, setIsTopVisible] = useState(false)
+  const [isLeftVisible, setIsLeftVisible] = useState(false)
+  const [isRightVisible, setIsRightVisible] = useState(false)
+  const [isBottomVisible, setIsBottomVisible] = useState(false)
 
   const getAvailableComponents = () => {
     return (
       <React.Fragment>
         {components && showComponents && (
-          <div>
+          <div id='component'>
             {components.map((child, idx) => {
               return (
                 <p
@@ -32,18 +35,19 @@ function UFLayout({ id, components }) {
     )
   }
 
-  const getLayoutChildren = (id, isVisible) => {
+  const getLayoutChildren = (id, isVisible, toggleVisibility) => {
     return (
       <React.Fragment>
-        {isTopVisible ? (
+        {isVisible ? (
           <div>
             <UFLayout components={components} id={id}></UFLayout>
           </div>
         ) : (
           <p
             onClick={() => {
-              setIsTopVisible(true)
+              toggleVisibility(!isVisible)
             }}
+            id={id}
           >
             add {id}
           </p>
@@ -53,13 +57,12 @@ function UFLayout({ id, components }) {
   }
 
   return (
-    <React.Fragment>
-      {getLayoutChildren('top')}
-      {/* {getLayoutChildren('left')} */}
+    <React.Fragment id={id}>
+      {getLayoutChildren('top', isTopVisible, setIsTopVisible)}
+      {getLayoutChildren('left', isLeftVisible, setIsLeftVisible)}
       {layoutComponent ? layoutComponent : getAvailableComponents()}
-      {/* layoutComponent */}
-      {/* {getLayoutChildren('right')} */}
-      {/* {getLayoutChildren('bottom')} */}
+      {getLayoutChildren('right', isRightVisible, setIsRightVisible)}
+      {getLayoutChildren('bottom', isBottomVisible, setIsBottomVisible)}
     </React.Fragment>
   )
 }
